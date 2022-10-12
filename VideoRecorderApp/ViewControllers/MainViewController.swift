@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 import AssetsLibrary
 
-class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate {
+class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet var recordOutlet: UIButton!
     @IBOutlet var recordLabel: UILabel!
@@ -230,6 +230,30 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
             }
         }
     }
+    
+    /*
+     // Method: goToSelectDurationViewController
+     // Description: Method to go to Select Duration View Controller
+     */
+    func goToSelectDurationViewController() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let objVC = storyboard.instantiateViewController(withIdentifier: "SelectDurationViewController") as? SelectDurationViewController
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        if let aController = objVC {
+            navigationController?.pushViewController(aController, animated: true)
+        }
+    }
+    
+    // MARK: - IBAction Methods
+    
+    /*
+     // Method: onBtnSignup
+     // Description: IBAction for signup button
+     */
+    @IBAction func onBtnBackWordArrow(_ sender: Any) {
+        self.goToSelectDurationViewController()
+    }
+    
     
 }
 

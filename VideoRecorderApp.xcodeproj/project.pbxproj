@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4549C03328F6972C002D970A /* SelectDurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4549C03228F6972C002D970A /* SelectDurationViewController.swift */; };
+		4549C03528F69817002D970A /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4549C03428F69817002D970A /* AppUtility.swift */; };
+		4549C03828F69A81002D970A /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4549C03728F69A81002D970A /* CircleView.swift */; };
+		4549C03B28F69ADC002D970A /* TagRadiousView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4549C03A28F69ADC002D970A /* TagRadiousView.swift */; };
+		4549C03F28F69BFB002D970A /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4549C03E28F69BFB002D970A /* CircleButton.swift */; };
 		45CC83C428F533DD00BDEBD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC83C328F533DD00BDEBD8 /* AppDelegate.swift */; };
 		45CC83C628F533DD00BDEBD8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC83C528F533DD00BDEBD8 /* SceneDelegate.swift */; };
 		45CC83CB28F533DD00BDEBD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45CC83C928F533DD00BDEBD8 /* Main.storyboard */; };
@@ -16,6 +21,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4549C03228F6972C002D970A /* SelectDurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDurationViewController.swift; sourceTree = "<group>"; };
+		4549C03428F69817002D970A /* AppUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
+		4549C03728F69A81002D970A /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
+		4549C03A28F69ADC002D970A /* TagRadiousView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRadiousView.swift; sourceTree = "<group>"; };
+		4549C03E28F69BFB002D970A /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
 		45CC83C028F533DD00BDEBD8 /* VideoRecorderApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoRecorderApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45CC83C328F533DD00BDEBD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45CC83C528F533DD00BDEBD8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,6 +47,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4549C03628F69822002D970A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				4549C03428F69817002D970A /* AppUtility.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		4549C03928F69A8C002D970A /* StyleClass */ = {
+			isa = PBXGroup;
+			children = (
+				4549C03728F69A81002D970A /* CircleView.swift */,
+				4549C03A28F69ADC002D970A /* TagRadiousView.swift */,
+				4549C03E28F69BFB002D970A /* CircleButton.swift */,
+			);
+			path = StyleClass;
+			sourceTree = "<group>";
+		};
 		45CC83B728F533DD00BDEBD8 = {
 			isa = PBXGroup;
 			children = (
@@ -56,6 +84,8 @@
 		45CC83C228F533DD00BDEBD8 /* VideoRecorderApp */ = {
 			isa = PBXGroup;
 			children = (
+				4549C03928F69A8C002D970A /* StyleClass */,
+				4549C03628F69822002D970A /* Utilities */,
 				45CC83D728F5340C00BDEBD8 /* AppDelegates */,
 				45CC83DA28F5344000BDEBD8 /* ViewControllers */,
 				45CC83C928F533DD00BDEBD8 /* Main.storyboard */,
@@ -79,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				45CC83D828F5342200BDEBD8 /* MainViewController.swift */,
+				4549C03228F6972C002D970A /* SelectDurationViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -154,8 +185,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4549C03828F69A81002D970A /* CircleView.swift in Sources */,
 				45CC83D928F5342200BDEBD8 /* MainViewController.swift in Sources */,
 				45CC83C428F533DD00BDEBD8 /* AppDelegate.swift in Sources */,
+				4549C03F28F69BFB002D970A /* CircleButton.swift in Sources */,
+				4549C03B28F69ADC002D970A /* TagRadiousView.swift in Sources */,
+				4549C03528F69817002D970A /* AppUtility.swift in Sources */,
+				4549C03328F6972C002D970A /* SelectDurationViewController.swift in Sources */,
 				45CC83C628F533DD00BDEBD8 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
