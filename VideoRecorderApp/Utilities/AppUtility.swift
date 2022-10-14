@@ -254,10 +254,18 @@ class AppUtility {
      // Description: get coller array
      // Return: return colors string array
      */
-    public class func getColosArray() -> [String]
-    {
-        return ["E5E5E5", "FE990D", "081733", "EB0000"]
+    public class func getColosArray() -> [String] {
+        return ["E5E5E5", "FE990D", "081733", "EB0000", "731377", "CB291D", "2E6A1F"]
     }
+    
+    /*
+     // Method: getDefaultTags
+     // Description: get default tags array
+     // Return: tag array in the form of TagStruct
+     */
+    public class func getDefaultTags() -> [TagStruct] {
+            return [TagStruct(title: "Makes", color: "731377"), TagStruct(title: "Misses", color: "CB291D"), TagStruct(title: "TOs", color: "CB291D"), TagStruct(title: "Label4", color: "CB291D"), TagStruct(title: "Label5", color: "CB291D"), TagStruct(title: "Label6", color: "CB291D"), TagStruct(title: "Label7", color: "CB291D"), TagStruct(title: "TOs", color: "2E6A1F")]
+        }
     
     /*
      // Method: saveImageToDocumentDirectory
@@ -395,4 +403,10 @@ extension Calendar {
         
         return numberOfDays.day! + 1
     }
+}
+
+struct TagStruct : Codable {
+    var title: String
+    var color: String
+ 
 }

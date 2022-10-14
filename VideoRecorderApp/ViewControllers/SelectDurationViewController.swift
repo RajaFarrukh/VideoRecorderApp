@@ -12,6 +12,8 @@ class SelectDurationViewController: UIViewController {
     @IBOutlet weak var startPickerView: UIPickerView!
     @IBOutlet weak var stopPickerView: UIPickerView!
     
+    var pickerData: [String] = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -58,7 +60,17 @@ class SelectDurationViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-
+    /*
+     // Method: onBtnDone
+     // Description: IBAction for back button
+     */
+    @IBAction func onBtnDone(_ sender: Any) {
+        let startSec = self.startPickerView.selectedRow(inComponent: 1)
+        let EndSec = self.stopPickerView.selectedRow(inComponent: 1)
+        
+        
+    }
+    
 }
 
 extension SelectDurationViewController: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -67,12 +79,15 @@ extension SelectDurationViewController: UIPickerViewDelegate, UIPickerViewDataSo
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 10
+        return 60
     }
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return String(format: "%d", row)
     }
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
          
     }

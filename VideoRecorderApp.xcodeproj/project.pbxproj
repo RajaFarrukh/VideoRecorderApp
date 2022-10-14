@@ -12,20 +12,33 @@
 		4549C03828F69A81002D970A /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4549C03728F69A81002D970A /* CircleView.swift */; };
 		4549C03B28F69ADC002D970A /* TagRadiousView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4549C03A28F69ADC002D970A /* TagRadiousView.swift */; };
 		4549C03F28F69BFB002D970A /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4549C03E28F69BFB002D970A /* CircleButton.swift */; };
+		459346D728F94EF60012D301 /* CreateTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459346D628F94EF60012D301 /* CreateTagViewController.swift */; };
+		459346DA28F979B80012D301 /* ColorsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459346D828F979B80012D301 /* ColorsCollectionViewCell.swift */; };
+		459346DB28F979B80012D301 /* ColorsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 459346D928F979B80012D301 /* ColorsCollectionViewCell.xib */; };
+		459346E028F980BA0012D301 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459346DE28F980BA0012D301 /* TagCollectionViewCell.swift */; };
+		459346E128F980BA0012D301 /* TagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 459346DF28F980BA0012D301 /* TagCollectionViewCell.xib */; };
 		45CC83C428F533DD00BDEBD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC83C328F533DD00BDEBD8 /* AppDelegate.swift */; };
 		45CC83C628F533DD00BDEBD8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC83C528F533DD00BDEBD8 /* SceneDelegate.swift */; };
 		45CC83CB28F533DD00BDEBD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45CC83C928F533DD00BDEBD8 /* Main.storyboard */; };
 		45CC83CD28F533DE00BDEBD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45CC83CC28F533DE00BDEBD8 /* Assets.xcassets */; };
 		45CC83D028F533DE00BDEBD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45CC83CE28F533DE00BDEBD8 /* LaunchScreen.storyboard */; };
 		45CC83D928F5342200BDEBD8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CC83D828F5342200BDEBD8 /* MainViewController.swift */; };
+		A2A09659E98EC20A8DBFC33A /* Pods_VideoRecorderApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8204F2BB536D96102E919799 /* Pods_VideoRecorderApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		147010ED68C8662FD0E23265 /* Pods-VideoRecorderApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoRecorderApp.release.xcconfig"; path = "Target Support Files/Pods-VideoRecorderApp/Pods-VideoRecorderApp.release.xcconfig"; sourceTree = "<group>"; };
+		2FC5B3A7AD0C20866D36E767 /* Pods-VideoRecorderApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoRecorderApp.debug.xcconfig"; path = "Target Support Files/Pods-VideoRecorderApp/Pods-VideoRecorderApp.debug.xcconfig"; sourceTree = "<group>"; };
 		4549C03228F6972C002D970A /* SelectDurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDurationViewController.swift; sourceTree = "<group>"; };
 		4549C03428F69817002D970A /* AppUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
 		4549C03728F69A81002D970A /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		4549C03A28F69ADC002D970A /* TagRadiousView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRadiousView.swift; sourceTree = "<group>"; };
 		4549C03E28F69BFB002D970A /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
+		459346D628F94EF60012D301 /* CreateTagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTagViewController.swift; sourceTree = "<group>"; };
+		459346D828F979B80012D301 /* ColorsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsCollectionViewCell.swift; sourceTree = "<group>"; };
+		459346D928F979B80012D301 /* ColorsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorsCollectionViewCell.xib; sourceTree = "<group>"; };
+		459346DE28F980BA0012D301 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
+		459346DF28F980BA0012D301 /* TagCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCollectionViewCell.xib; sourceTree = "<group>"; };
 		45CC83C028F533DD00BDEBD8 /* VideoRecorderApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoRecorderApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45CC83C328F533DD00BDEBD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45CC83C528F533DD00BDEBD8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -34,6 +47,7 @@
 		45CC83CF28F533DE00BDEBD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		45CC83D128F533DE00BDEBD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45CC83D828F5342200BDEBD8 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		8204F2BB536D96102E919799 /* Pods_VideoRecorderApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VideoRecorderApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,12 +55,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2A09659E98EC20A8DBFC33A /* Pods_VideoRecorderApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		28B2BCB3A68CCFC324D79C27 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2FC5B3A7AD0C20866D36E767 /* Pods-VideoRecorderApp.debug.xcconfig */,
+				147010ED68C8662FD0E23265 /* Pods-VideoRecorderApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		4549C03628F69822002D970A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -65,11 +89,40 @@
 			path = StyleClass;
 			sourceTree = "<group>";
 		};
+		459346DC28F979BB0012D301 /* ColorsCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				459346D828F979B80012D301 /* ColorsCollectionViewCell.swift */,
+				459346D928F979B80012D301 /* ColorsCollectionViewCell.xib */,
+			);
+			path = ColorsCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		459346DD28F979D40012D301 /* CollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				459346DC28F979BB0012D301 /* ColorsCollectionViewCell */,
+				459346E228F980BE0012D301 /* TagCollectionViewCell */,
+			);
+			path = CollectionViewCells;
+			sourceTree = "<group>";
+		};
+		459346E228F980BE0012D301 /* TagCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				459346DE28F980BA0012D301 /* TagCollectionViewCell.swift */,
+				459346DF28F980BA0012D301 /* TagCollectionViewCell.xib */,
+			);
+			path = TagCollectionViewCell;
+			sourceTree = "<group>";
+		};
 		45CC83B728F533DD00BDEBD8 = {
 			isa = PBXGroup;
 			children = (
 				45CC83C228F533DD00BDEBD8 /* VideoRecorderApp */,
 				45CC83C128F533DD00BDEBD8 /* Products */,
+				28B2BCB3A68CCFC324D79C27 /* Pods */,
+				6837CAC95909C8546C9A69E4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -87,6 +140,7 @@
 				4549C03928F69A8C002D970A /* StyleClass */,
 				4549C03628F69822002D970A /* Utilities */,
 				45CC83D728F5340C00BDEBD8 /* AppDelegates */,
+				459346DD28F979D40012D301 /* CollectionViewCells */,
 				45CC83DA28F5344000BDEBD8 /* ViewControllers */,
 				45CC83C928F533DD00BDEBD8 /* Main.storyboard */,
 				45CC83CC28F533DE00BDEBD8 /* Assets.xcassets */,
@@ -110,8 +164,17 @@
 			children = (
 				45CC83D828F5342200BDEBD8 /* MainViewController.swift */,
 				4549C03228F6972C002D970A /* SelectDurationViewController.swift */,
+				459346D628F94EF60012D301 /* CreateTagViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		6837CAC95909C8546C9A69E4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8204F2BB536D96102E919799 /* Pods_VideoRecorderApp.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -121,9 +184,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 45CC83D428F533DE00BDEBD8 /* Build configuration list for PBXNativeTarget "VideoRecorderApp" */;
 			buildPhases = (
+				C87CB1597EE8828F596C443B /* [CP] Check Pods Manifest.lock */,
 				45CC83BC28F533DD00BDEBD8 /* Sources */,
 				45CC83BD28F533DD00BDEBD8 /* Frameworks */,
 				45CC83BE28F533DD00BDEBD8 /* Resources */,
+				65777B4E7664F3E7257354DD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -174,11 +239,55 @@
 			files = (
 				45CC83D028F533DE00BDEBD8 /* LaunchScreen.storyboard in Resources */,
 				45CC83CD28F533DE00BDEBD8 /* Assets.xcassets in Resources */,
+				459346E128F980BA0012D301 /* TagCollectionViewCell.xib in Resources */,
+				459346DB28F979B80012D301 /* ColorsCollectionViewCell.xib in Resources */,
 				45CC83CB28F533DD00BDEBD8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		65777B4E7664F3E7257354DD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VideoRecorderApp/Pods-VideoRecorderApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VideoRecorderApp/Pods-VideoRecorderApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VideoRecorderApp/Pods-VideoRecorderApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C87CB1597EE8828F596C443B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VideoRecorderApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		45CC83BC28F533DD00BDEBD8 /* Sources */ = {
@@ -189,10 +298,13 @@
 				45CC83D928F5342200BDEBD8 /* MainViewController.swift in Sources */,
 				45CC83C428F533DD00BDEBD8 /* AppDelegate.swift in Sources */,
 				4549C03F28F69BFB002D970A /* CircleButton.swift in Sources */,
+				459346D728F94EF60012D301 /* CreateTagViewController.swift in Sources */,
 				4549C03B28F69ADC002D970A /* TagRadiousView.swift in Sources */,
+				459346DA28F979B80012D301 /* ColorsCollectionViewCell.swift in Sources */,
 				4549C03528F69817002D970A /* AppUtility.swift in Sources */,
 				4549C03328F6972C002D970A /* SelectDurationViewController.swift in Sources */,
 				45CC83C628F533DD00BDEBD8 /* SceneDelegate.swift in Sources */,
+				459346E028F980BA0012D301 /* TagCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +448,7 @@
 		};
 		45CC83D528F533DE00BDEBD8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2FC5B3A7AD0C20866D36E767 /* Pods-VideoRecorderApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -370,6 +483,7 @@
 		};
 		45CC83D628F533DE00BDEBD8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 147010ED68C8662FD0E23265 /* Pods-VideoRecorderApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
