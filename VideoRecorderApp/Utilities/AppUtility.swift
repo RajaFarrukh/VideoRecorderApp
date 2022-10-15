@@ -296,6 +296,39 @@ class AppUtility {
         return ["CB291D", "EE8531", "F8BC40", "2E6A1F", "0400F0", "731377"]
     }
     
+    /*
+     // Method: saveTagArray
+     // Description: save tag array
+     // Return: return tag array
+     */
+    public class func saveTagArray(tagArray:[TagStruct]) {
+        do {
+            let data = try JSONEncoder().encode(tagArray)
+            UserDefaults.standard.set(data, forKey: "TagsArray")
+        } catch  {
+            print(error)
+        }
+    }
+    
+    /*
+     // Method: retriveTagArray
+     // Description: save tag array
+     // Return: return tag array
+     */
+    public class func retriveTagArray() -> [TagStruct] {
+        var folderArray: [TagStruct] = []
+        if let data = UserDefaults.standard.data(forKey: "TagsArray") {
+            do {
+                let arr = try JSONDecoder().decode([TagStruct].self, from: data)
+                print(arr)
+                folderArray = arr
+            } catch {
+                print(error)
+            }
+        }
+        return folderArray
+    }
+    
 }
 
 extension Double {

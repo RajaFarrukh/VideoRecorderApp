@@ -10,6 +10,7 @@ import UIKit
 class ColorsCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet var colorView: UIView!
+    @IBOutlet var checkedImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -69,6 +69,7 @@ class CreateTagViewController: UIViewController {
      // Description: IBAction for preview button
      */
     @IBAction func onBtnPreview(_ sender: Any) {
+        
         if self.titleTextField.text == "" {
             return
         }
@@ -87,6 +88,24 @@ class CreateTagViewController: UIViewController {
      */
     @IBAction func onBtnDone(_ sender: Any) {
        
+        if self.titleTextField.text == "" {
+            return
+        }
+        
+        if self.selectedColor == "" {
+            return
+        }
+        
+        let titleString = self.titleTextField.text ?? ""
+        let colorString = self.selectedColor ?? ""
+        
+        let objTagStruct = TagStruct(title: titleString, color: colorString)
+        
+        var tagArray = AppUtility.retriveTagArray()
+        tagArray.append(objTagStruct)
+        AppUtility.saveTagArray(tagArray: tagArray)
+        
+        navigationController?.popViewController(animated: true)
         
     }
     
@@ -108,6 +127,12 @@ extension CreateTagViewController: UICollectionViewDelegate,UICollectionViewData
         let colorHexString = self.colorsArray[indexPath.row]
         cell.colorView.backgroundColor = AppUtility.hexColor(hex: colorHexString)
         
+        if self.selectedColor == colorHexString {
+            cell.checkedImageView.isHidden = false
+        } else {
+            cell.checkedImageView.isHidden = true
+        }
+        
         cell.backgroundColor = UIColor.clear
         return cell
         
@@ -121,6 +146,10 @@ extension CreateTagViewController: UICollectionViewDelegate,UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
      
         self.selectedColor = self.colorsArray[indexPath.row]
+        
+        self.colorsCollectionView.delegate = self
+        self.colorsCollectionView.dataSource = self
+        self.colorsCollectionView.reloadData()
         
     }
     

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -36,24 +36,53 @@
                             <constraint firstAttribute="bottom" secondItem="Uaf-c4-zSV" secondAttribute="bottom" constant="4" id="Ua9-by-hbz"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Fh-Fy-jmZ" customClass="CircleView" customModule="VideoRecorderApp" customModuleProvider="target">
+                        <rect key="frame" x="56" y="0.0" width="24" height="24"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_delete" translatesAutoresizingMaskIntoConstraints="NO" id="FU4-mI-I3I">
+                                <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4AM-WQ-s2l">
+                                <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="FU4-mI-I3I" secondAttribute="trailing" id="1Zt-k4-Rj9"/>
+                            <constraint firstItem="4AM-WQ-s2l" firstAttribute="leading" secondItem="6Fh-Fy-jmZ" secondAttribute="leading" id="4jV-v5-ZLq"/>
+                            <constraint firstItem="4AM-WQ-s2l" firstAttribute="top" secondItem="6Fh-Fy-jmZ" secondAttribute="top" id="9E6-Qu-mOa"/>
+                            <constraint firstAttribute="height" constant="24" id="AwL-yV-7bd"/>
+                            <constraint firstAttribute="bottom" secondItem="FU4-mI-I3I" secondAttribute="bottom" id="BkC-R2-4w5"/>
+                            <constraint firstAttribute="trailing" secondItem="4AM-WQ-s2l" secondAttribute="trailing" id="MBK-fT-ReW"/>
+                            <constraint firstAttribute="width" constant="24" id="amv-ku-cVN"/>
+                            <constraint firstItem="FU4-mI-I3I" firstAttribute="top" secondItem="6Fh-Fy-jmZ" secondAttribute="top" id="rfg-DC-v9w"/>
+                            <constraint firstAttribute="bottom" secondItem="4AM-WQ-s2l" secondAttribute="bottom" id="tAq-E1-8C0"/>
+                            <constraint firstItem="FU4-mI-I3I" firstAttribute="leading" secondItem="6Fh-Fy-jmZ" secondAttribute="leading" id="ufh-kq-8ov"/>
+                        </constraints>
+                    </view>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
+                <constraint firstItem="6Fh-Fy-jmZ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="4J7-o2-oHq"/>
                 <constraint firstAttribute="trailing" secondItem="s6L-Cr-OaA" secondAttribute="trailing" constant="8" id="6Eq-33-iA6"/>
                 <constraint firstAttribute="bottom" secondItem="s6L-Cr-OaA" secondAttribute="bottom" constant="8" id="CDW-rf-Eqc"/>
+                <constraint firstAttribute="trailing" secondItem="6Fh-Fy-jmZ" secondAttribute="trailing" id="VR3-LP-dvi"/>
                 <constraint firstItem="s6L-Cr-OaA" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="irn-MB-cGE"/>
                 <constraint firstItem="s6L-Cr-OaA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="oxW-pb-e3k"/>
             </constraints>
             <size key="customSize" width="170" height="143"/>
             <connections>
                 <outlet property="colorView" destination="s6L-Cr-OaA" id="dgo-00-RZm"/>
+                <outlet property="deleteButton" destination="4AM-WQ-s2l" id="EhT-Vu-SnS"/>
                 <outlet property="titleLabel" destination="Uaf-c4-zSV" id="sEJ-vV-Jje"/>
             </connections>
-            <point key="canvasLocation" x="224.63768115942031" y="155.69196428571428"/>
+            <point key="canvasLocation" x="224.63768115942031" y="155.35714285714286"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="ic_delete" width="256" height="256"/>
         <systemColor name="tintColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

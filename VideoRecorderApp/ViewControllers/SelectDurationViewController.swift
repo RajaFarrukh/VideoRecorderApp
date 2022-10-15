@@ -65,10 +65,15 @@ class SelectDurationViewController: UIViewController {
      // Description: IBAction for back button
      */
     @IBAction func onBtnDone(_ sender: Any) {
-        let startSec = self.startPickerView.selectedRow(inComponent: 1)
-        let EndSec = self.stopPickerView.selectedRow(inComponent: 1)
+        let startSec = self.startPickerView.selectedRow(inComponent: 0)
+        let endSec = self.stopPickerView.selectedRow(inComponent: 0)
+        print("Done")
         
+        UserDefaults.standard.set(startSec, forKey: "start")
+        UserDefaults.standard.set(endSec, forKey: "stop")
+        UserDefaults.standard.synchronize()
         
+        navigationController?.popViewController(animated: true)
     }
     
 }

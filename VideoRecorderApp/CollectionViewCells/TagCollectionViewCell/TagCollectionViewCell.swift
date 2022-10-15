@@ -11,6 +11,7 @@ class TagCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet var colorView: UIView!
     @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var deleteButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

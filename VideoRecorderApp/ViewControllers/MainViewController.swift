@@ -24,6 +24,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
     var recordingSlot = 4
     var videoTimeInSec = 4
     var arrayTags:[TagStruct] = []
+    var selectedTag:TagStruct? = nil
     
     @IBOutlet var startStopButton: UIButton!
     @IBOutlet var videoPickerControllerView: UIView!
@@ -44,6 +45,21 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
     
     override func viewWillAppear(_ animated: Bool) {
         self.cameraViewAction()
+        self.arrayTags = AppUtility.retriveTagArray() //AppUtility.getDefaultTags()
+//        let tagArray = AppUtility.retriveTagArray()
+//        self.arrayTags.append(contentsOf: tagArray)
+        self.reloadTagCollectionView()
+        
+        let sloteValue = UserDefaults.standard.integer(forKey: "start")
+        
+        if sloteValue > 0 {
+            self.recordingSlot = sloteValue
+            self.videoTimeInSec = sloteValue
+        } else {
+            self.recordingSlot = 4
+            self.videoTimeInSec = 4
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,9 +90,10 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         
         let nibName = UINib(nibName: "TagCollectionViewCell", bundle:nil)
         self.tagsCollectionView.register(nibName, forCellWithReuseIdentifier: "TagCell")
-        
-        self.arrayTags = AppUtility.getDefaultTags()
-        
+
+    }
+    
+    func reloadTagCollectionView() {
         self.tagsCollectionView.delegate = self
         self.tagsCollectionView.dataSource = self
         self.tagsCollectionView.reloadData()
@@ -132,6 +149,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         }
     }
     
+    // Start stop recording
     func startStopRecording() {
         if isVideoRecordingStart {
             isVideoRecordingStart = false
@@ -169,7 +187,18 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
             self.startStopRecording()
             self.clipTimeLabel.text = ""
             self.startStopRecording()
-            self.startStopRecording()
+            
+            let sloteValue = UserDefaults.standard.integer(forKey: "start")
+            
+            if sloteValue > 0 {
+                self.recordingSlot = sloteValue
+                self.videoTimeInSec = sloteValue
+            } else {
+                self.recordingSlot = 4
+                self.videoTimeInSec = 4
+            }
+            
+            
         } else {
             self.clipTimeLabel.isHidden = false
             self.clipTimeLabel.text = "\(recordingSlot)"
@@ -209,6 +238,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         })
     }
     
+    // seconds from string
     func secondsFromString (string: String) -> Int {
         let components: Array = string.components(separatedBy: ":")
         let hours = Int(components[0] ) ?? 0
@@ -217,6 +247,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         return Int(((hours * 60) * 60) + (minutes * 60) + seconds)
     }
     
+    // crop video
     func cropVideo(sourceURL1: URL, statTime:Float, endTime:Float) {
         let manager = FileManager.default
         
@@ -229,11 +260,17 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
             
             let start = statTime
             let end = endTime
+            var videoName = ""
+            if let tag = self.selectedTag {
+                videoName = tag.title
+            } else {
+                videoName = "videoClip"
+            }
             
             var outputURL = documentDirectory.appendingPathComponent("output")
             do {
                 try manager.createDirectory(at: outputURL, withIntermediateDirectories: true, attributes: nil)
-                outputURL = outputURL.appendingPathComponent("\(UUID().uuidString).\(mediaType)")
+                outputURL = outputURL.appendingPathComponent("\(UUID().uuidString)-\(videoName).\(mediaType)")
             }catch let error {
                 print(error)
             }
@@ -251,7 +288,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
             let timeRange = CMTimeRange(start: startTime, end: endTime)
             
             exportSession.timeRange = timeRange
-            exportSession.exportAsynchronously{
+            exportSession.exportAsynchronously {
                 switch exportSession.status {
                 case .completed:
                     print("exported at \(outputURL)")
@@ -260,16 +297,18 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
                     }
                 case .failed:
                     print("failed \(exportSession.error)")
-                    
                 case .cancelled:
                     print("cancelled \(exportSession.error)")
-                    
                 default: break
                 }
             }
         }
     }
     
+    /*
+     // Method: requestAuthorization
+     // Description: Mthods to request authorization
+     */
     func requestAuthorization(completion: @escaping ()->Void) {
         if PHPhotoLibrary.authorizationStatus() == .notDetermined {
             PHPhotoLibrary.requestAuthorization { (status) in
@@ -282,6 +321,10 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         }
     }
     
+    /*
+     // Method: onBtnSignup
+     // Description: Mthods to save video to album
+     */
     func saveVideoToAlbum(_ outputURL: URL, _ completion: ((Error?) -> Void)?) {
         requestAuthorization {
             PHPhotoLibrary.shared().performChanges({
@@ -298,6 +341,39 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
                 }
             }
         }
+    }
+    
+    /*
+     // Method: deleteTag
+     // Description: Mthods to delete tag
+     // Params: index:Int
+     */
+    func deleteTag(index:Int) {
+        // Create the alert controller
+        let alertController = UIAlertController(title: "Conformation Required!", message: "Are you sure you want to delete the tag.", preferredStyle: .alert)
+
+           // Create the actions
+        let okAction = UIAlertAction(title: "Delete", style: UIAlertAction.Style.default) {
+               UIAlertAction in
+               NSLog("Delete Pressed")
+            
+            self.arrayTags.remove(at: index)
+            AppUtility.saveTagArray(tagArray: self.arrayTags)
+            self.arrayTags = AppUtility.retriveTagArray()
+            self.reloadTagCollectionView()
+                
+           }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) {
+               UIAlertAction in
+               NSLog("Cancel Pressed")
+           }
+
+           // Add the actions
+           alertController.addAction(okAction)
+           alertController.addAction(cancelAction)
+
+           // Present the controller
+        self.present(alertController, animated: true, completion: nil)
     }
     
     // MARK: - IBAction Methods
@@ -326,10 +402,10 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         self.startStopRecording()
     }
     
-    @IBAction func onBtnMakes(_ sender: Any) {
-        timerForClip = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerActionForClip), userInfo: nil, repeats: true)
+    @objc func deleteClicked(sender : UIButton) {
+        print("delete Clicked")
+        self.deleteTag(index: sender.tag)
     }
-    
 }
 
 //MARK : UIImagePicker Delegate
@@ -346,30 +422,10 @@ extension MainViewController : UIImagePickerControllerDelegate, UINavigationCont
             
             let currentTimeInSec = self.secondsFromString(string: currentTime)
             
-            let startSec = Float64(currentTimeInSec - 4)
-            let endSec = Float64(currentTimeInSec + 4)
+            let startSec = Float64(currentTimeInSec - self.videoTimeInSec)
+            let endSec = Float64(currentTimeInSec + self.videoTimeInSec)
             
             self.cropVideo(sourceURL1: cVideoURL, statTime: Float(startSec), endTime: Float(endSec))
-            
-            //            let smallValue =  0.0401588716
-            //            let startSecCMTime =      CMTimeMakeWithSeconds(startSec, preferredTimescale: 1)
-            //            let startTimeInCM =   CMTimeMultiplyByFloat64(startSecCMTime , multiplier: smallValue)
-            //            print(CMTimeGetSeconds(startTimeInCM))
-            //
-            //            let endSecCMTime =      CMTimeMakeWithSeconds(endSec, preferredTimescale: 1)
-            //            let endTimeInCM =   CMTimeMultiplyByFloat64(endSecCMTime , multiplier: smallValue)
-            //            print(CMTimeGetSeconds(endTimeInCM))
-            //            let asset = AVAsset(url: cVideoURL)
-            
-            //            let fetchOptions = PHFetchOptions()
-            //            fetchOptions.predicate = NSPredicate(format: "title = %@", "VIdeoClipss")
-            //            let collections = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
-            //            print("collections")
-            
-            
-            
-            //self.export(asset, to: URL(string: galleryPath), startTime: startSecCMTime, endTime: endTimeInCM, composition: composition)
-            
             print("Done")
         }
         
@@ -422,6 +478,9 @@ extension MainViewController: UICollectionViewDelegate,UICollectionViewDataSourc
         cell.colorView.backgroundColor = AppUtility.hexColor(hex: tagStruch.color)
         cell.titleLabel.text = tagStruch.title
         
+        cell.deleteButton.tag = indexPath.row
+        cell.deleteButton.addTarget(self, action:#selector(self.deleteClicked), for: .touchUpInside)
+        
         cell.backgroundColor = UIColor.clear
         return cell
         
@@ -433,8 +492,8 @@ extension MainViewController: UICollectionViewDelegate,UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-     
-        
+        self.selectedTag = arrayTags[indexPath.row]
+        timerForClip = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerActionForClip), userInfo: nil, repeats: true)
         
     }
     
