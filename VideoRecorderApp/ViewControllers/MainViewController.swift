@@ -25,6 +25,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
     var videoTimeInSec = 4
     var arrayTags:[TagStruct] = []
     var selectedTag:TagStruct? = nil
+    var isSavedVideo:Bool = false
     
     @IBOutlet var startStopButton: UIButton!
     @IBOutlet var videoPickerControllerView: UIView!
@@ -38,19 +39,19 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         
         // Do any additional setup after loading the view.
         // self.setup()
-        //self.createAlbum()
-  
+        self.createAlbum()
+        
         self.setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.cameraViewAction()
         self.arrayTags = AppUtility.retriveTagArray() //AppUtility.getDefaultTags()
-//        let tagArray = AppUtility.retriveTagArray()
-//        self.arrayTags.append(contentsOf: tagArray)
+        //        let tagArray = AppUtility.retriveTagArray()
+        //        self.arrayTags.append(contentsOf: tagArray)
         self.reloadTagCollectionView()
         
-        let sloteValue = UserDefaults.standard.integer(forKey: "start")
+        let sloteValue = UserDefaults.standard.integer(forKey: "stop")
         
         if sloteValue > 0 {
             self.recordingSlot = sloteValue
@@ -90,7 +91,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         
         let nibName = UINib(nibName: "TagCollectionViewCell", bundle:nil)
         self.tagsCollectionView.register(nibName, forCellWithReuseIdentifier: "TagCell")
-
+        
     }
     
     func reloadTagCollectionView() {
@@ -98,7 +99,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         self.tagsCollectionView.dataSource = self
         self.tagsCollectionView.reloadData()
     }
-
+    
     func cameraViewAction() {
         videoPickerController.delegate = self
         if UIImagePickerController.isSourceTypeAvailable(.camera) == false {
@@ -188,7 +189,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
             self.clipTimeLabel.text = ""
             self.startStopRecording()
             
-            let sloteValue = UserDefaults.standard.integer(forKey: "start")
+            let sloteValue = UserDefaults.standard.integer(forKey: "stop")
             
             if sloteValue > 0 {
                 self.recordingSlot = sloteValue
@@ -267,7 +268,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
                 videoName = "videoClip"
             }
             
-            var outputURL = documentDirectory.appendingPathComponent("output")
+            var outputURL = documentDirectory.appendingPathComponent("VideoClips")
             do {
                 try manager.createDirectory(at: outputURL, withIntermediateDirectories: true, attributes: nil)
                 outputURL = outputURL.appendingPathComponent("\(UUID().uuidString)-\(videoName).\(mediaType)")
@@ -292,8 +293,11 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
                 switch exportSession.status {
                 case .completed:
                     print("exported at \(outputURL)")
-                    self.saveVideoToAlbum(outputURL) { Error in
-                        ///
+                    if self.isSavedVideo == false {
+                        self.isSavedVideo = true
+                        self.saveVideoToAlbum(outputURL) { Error in
+                            ///
+                        }
                     }
                 case .failed:
                     print("failed \(exportSession.error)")
@@ -304,6 +308,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
             }
         }
     }
+    
     
     /*
      // Method: requestAuthorization
@@ -327,18 +332,31 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
      */
     func saveVideoToAlbum(_ outputURL: URL, _ completion: ((Error?) -> Void)?) {
         requestAuthorization {
-            PHPhotoLibrary.shared().performChanges({
-                let request = PHAssetCreationRequest.forAsset()
-                request.addResource(with: .video, fileURL: outputURL, options: nil)
-            }) { (result, error) in
-                DispatchQueue.main.async {
-                    if let error = error {
-                        print(error.localizedDescription)
-                    } else {
-                        print("Saved successfully")
+            
+            let fetchOptions = PHFetchOptions()
+            fetchOptions.predicate = NSPredicate(format: "title = %@", "VideoClips")
+            let collection : PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
+            let firstobj = collection.firstObject
+            
+            if let assetCollection = collection.firstObject {
+                
+                PHPhotoLibrary.shared().performChanges({
+                    let assetChangeRequest = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputURL)
+                    if let assetPlaceholder = assetChangeRequest?.placeholderForCreatedAsset {
+                        let albumChangeRequest = PHAssetCollectionChangeRequest(for: assetCollection)
+                        albumChangeRequest?.addAssets([assetPlaceholder] as NSFastEnumeration)
                     }
-                    completion?(error)
+                }){ (result, error) in
+                    DispatchQueue.main.async {
+                        if let error = error {
+                            print(error.localizedDescription)
+                        } else {
+                            print("Saved successfully")
+                        }
+                        completion?(error)
+                    }
                 }
+                
             }
         }
     }
@@ -351,28 +369,28 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
     func deleteTag(index:Int) {
         // Create the alert controller
         let alertController = UIAlertController(title: "Conformation Required!", message: "Are you sure you want to delete the tag.", preferredStyle: .alert)
-
-           // Create the actions
+        
+        // Create the actions
         let okAction = UIAlertAction(title: "Delete", style: UIAlertAction.Style.default) {
-               UIAlertAction in
-               NSLog("Delete Pressed")
+            UIAlertAction in
+            NSLog("Delete Pressed")
             
             self.arrayTags.remove(at: index)
             AppUtility.saveTagArray(tagArray: self.arrayTags)
             self.arrayTags = AppUtility.retriveTagArray()
             self.reloadTagCollectionView()
-                
-           }
+            
+        }
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) {
-               UIAlertAction in
-               NSLog("Cancel Pressed")
-           }
-
-           // Add the actions
-           alertController.addAction(okAction)
-           alertController.addAction(cancelAction)
-
-           // Present the controller
+            UIAlertAction in
+            NSLog("Cancel Pressed")
+        }
+        
+        // Add the actions
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        // Present the controller
         self.present(alertController, animated: true, completion: nil)
     }
     
@@ -420,10 +438,21 @@ extension MainViewController : UIImagePickerControllerDelegate, UINavigationCont
         if let cVideoURL = self.capturedVideoURL {
             let currentTime = self.videoTimerLabel.text ?? "0:0:0" // hh:mm:ss
             
-            let currentTimeInSec = self.secondsFromString(string: currentTime)
+            var currentTimeInSec = self.secondsFromString(string: currentTime)
             
-            let startSec = Float64(currentTimeInSec - self.videoTimeInSec)
-            let endSec = Float64(currentTimeInSec + self.videoTimeInSec)
+            var startValue = UserDefaults.standard.integer(forKey: "start")
+            if startValue <= 0 {
+                startValue = 4
+            }
+            var stopValue = UserDefaults.standard.integer(forKey: "stop")
+            if stopValue <= 0 {
+                stopValue = 4
+            }
+            
+            currentTimeInSec = currentTimeInSec - stopValue
+            
+            let startSec = Float64(currentTimeInSec - startValue)
+            let endSec = Float64(currentTimeInSec + stopValue)
             
             self.cropVideo(sourceURL1: cVideoURL, statTime: Float(startSec), endTime: Float(endSec))
             print("Done")
@@ -436,15 +465,40 @@ extension MainViewController : UIImagePickerControllerDelegate, UINavigationCont
     }
     
     func createAlbum() {
-        PHPhotoLibrary.shared().performChanges({
-            PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: "VIdeoClipss")   // create an asset collection with the album name
-        }) { success, error in
-            if success {
-                
-            } else {
-                print("error \(error)")
+        //        PHPhotoLibrary.shared().performChanges({
+        //            PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: "VideoClips")   // create an asset collection with the album name
+        //        }) { success, error in
+        //            if success {
+        //
+        //            } else {
+        //                print("error \(error)")
+        //            }
+        //        }
+        
+        //Get PHFetch Options
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.predicate = NSPredicate(format: "title = %@", "VideoClips")
+        let collection : PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
+        //Check return value - If found, then get the first album out
+        if let _: AnyObject = collection.firstObject {
+            print("Already Exist")
+            //self.assetCollection = collection.firstObject!
+        } else {
+            print("Not Exist")
+            //If not found - Then create a new album
+            PHPhotoLibrary.shared().performChanges({
+                PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: "VideoClips")   // create an asset collection with the album name
+            }) { success, error in
+                if success {
+                    // created
+                    //  self.assetCollection = self.fetchAssetCollectionForAlbum()
+                } else {
+                    print("error \(error)")
+                }
             }
         }
+        
+        
     }
     
 }
@@ -493,6 +547,7 @@ extension MainViewController: UICollectionViewDelegate,UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.selectedTag = arrayTags[indexPath.row]
+        self.isSavedVideo = false
         timerForClip = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerActionForClip), userInfo: nil, repeats: true)
         
     }

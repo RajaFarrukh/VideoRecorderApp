@@ -48,6 +48,16 @@ class SelectDurationViewController: UIViewController {
         self.stopPickerView.delegate = self
         self.stopPickerView.reloadAllComponents()
         
+        let startValue = UserDefaults.standard.integer(forKey: "start")
+        let stopValue = UserDefaults.standard.integer(forKey: "stop")
+        
+        if startValue > 0 {
+            self.startPickerView.selectRow(startValue, inComponent: 0, animated: true)
+        }
+        
+        if stopValue > 0 {
+            self.stopPickerView.selectRow(stopValue, inComponent: 0, animated: true)
+        }
     }
     
     // MARK: - IBAction Methods
