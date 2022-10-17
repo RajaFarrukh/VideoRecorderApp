@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,6 +21,10 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s6L-Cr-OaA" customClass="TagRadiousView" customModule="VideoRecorderApp" customModuleProvider="target">
                         <rect key="frame" x="8" y="8" width="64" height="64"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qe8-UM-kfe" customClass="TagRadiousView" customModule="VideoRecorderApp" customModuleProvider="target">
+                                <rect key="frame" x="2" y="2" width="60" height="60"/>
+                                <color key="backgroundColor" systemColor="linkColor"/>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uaf-c4-zSV">
                                 <rect key="frame" x="4" y="4" width="56" height="56"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -28,12 +32,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="tintColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="qe8-UM-kfe" secondAttribute="bottom" constant="2" id="8zm-ob-sVk"/>
                             <constraint firstAttribute="trailing" secondItem="Uaf-c4-zSV" secondAttribute="trailing" constant="4" id="J2p-S5-QIF"/>
+                            <constraint firstAttribute="trailing" secondItem="qe8-UM-kfe" secondAttribute="trailing" constant="2" id="LFK-WI-XYv"/>
                             <constraint firstItem="Uaf-c4-zSV" firstAttribute="leading" secondItem="s6L-Cr-OaA" secondAttribute="leading" constant="4" id="LwT-E3-IjZ"/>
                             <constraint firstItem="Uaf-c4-zSV" firstAttribute="top" secondItem="s6L-Cr-OaA" secondAttribute="top" constant="4" id="TpS-Vp-73i"/>
                             <constraint firstAttribute="bottom" secondItem="Uaf-c4-zSV" secondAttribute="bottom" constant="4" id="Ua9-by-hbz"/>
+                            <constraint firstItem="qe8-UM-kfe" firstAttribute="top" secondItem="s6L-Cr-OaA" secondAttribute="top" constant="2" id="hOL-XG-b9E"/>
+                            <constraint firstItem="qe8-UM-kfe" firstAttribute="leading" secondItem="s6L-Cr-OaA" secondAttribute="leading" constant="2" id="rnw-iX-Ogz"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Fh-Fy-jmZ" customClass="CircleView" customModule="VideoRecorderApp" customModuleProvider="target">
@@ -74,8 +82,9 @@
             </constraints>
             <size key="customSize" width="170" height="143"/>
             <connections>
-                <outlet property="colorView" destination="s6L-Cr-OaA" id="dgo-00-RZm"/>
+                <outlet property="colorView" destination="qe8-UM-kfe" id="Nac-bZ-8x3"/>
                 <outlet property="deleteButton" destination="4AM-WQ-s2l" id="EhT-Vu-SnS"/>
+                <outlet property="selectedTagView" destination="s6L-Cr-OaA" id="dYc-zI-CFt"/>
                 <outlet property="titleLabel" destination="Uaf-c4-zSV" id="sEJ-vV-Jje"/>
             </connections>
             <point key="canvasLocation" x="224.63768115942031" y="155.35714285714286"/>
@@ -83,7 +92,7 @@
     </objects>
     <resources>
         <image name="ic_delete" width="256" height="256"/>
-        <systemColor name="tintColor">
+        <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>

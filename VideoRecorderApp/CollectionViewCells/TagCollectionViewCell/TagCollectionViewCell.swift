@@ -9,6 +9,7 @@ import UIKit
 
 class TagCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet var selectedTagView: UIView!
     @IBOutlet var colorView: UIView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var deleteButton: UIButton!

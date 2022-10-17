@@ -30,7 +30,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
     @IBOutlet var startStopButton: UIButton!
     @IBOutlet var videoPickerControllerView: UIView!
     @IBOutlet var videoTimerLabel: UILabel!
-    @IBOutlet var clipTimeLabel: UILabel!
+    @IBOutlet var clipTimeProgressView: UIProgressView!
     @IBOutlet weak var tagsCollectionView: UICollectionView!
     
     
@@ -51,6 +51,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         //        self.arrayTags.append(contentsOf: tagArray)
         self.reloadTagCollectionView()
         
+        self.clipTimeProgressView.progress = 0.0
         let sloteValue = UserDefaults.standard.integer(forKey: "stop")
         
         if sloteValue > 0 {
@@ -86,8 +87,8 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
      // Description: Method uset to setup page initially
      */
     func setupView() {
-        self.clipTimeLabel.isHidden = true
-        self.clipTimeLabel.text = ""
+        self.clipTimeProgressView.isHidden = true
+        self.clipTimeProgressView.progress = 0
         
         let nibName = UINib(nibName: "TagCollectionViewCell", bundle:nil)
         self.tagsCollectionView.register(nibName, forCellWithReuseIdentifier: "TagCell")
@@ -115,6 +116,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         videoPickerController.videoMaximumDuration = TimeInterval(240.0)
         videoPickerController.cameraCaptureMode = .video
         videoPickerController.modalPresentationStyle = .overCurrentContext//.fullScreen
+        videoPickerController.cameraFlashMode = .off
         
         addChild(videoPickerController)
         self.videoPickerControllerView.addSubview(videoPickerController.view)
@@ -168,42 +170,8 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         }
     }
     
-    // called every time interval from the timer
-    @objc func timerAction() {
-        counter += 1
-        let timerFormatedTime = self.secondsToHoursMinutesSeconds(counter)
-        self.videoTimerLabel.text = "\(timerFormatedTime.hours):\(timerFormatedTime.minutes):\(timerFormatedTime.seconds)"
-    }
-    
     func secondsToHoursMinutesSeconds(_ seconds: Int) -> (hours:Int, minutes:Int, seconds:Int) {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
-    }
-    
-    // called every time interval from the timer
-    @objc func timerActionForClip() {
-        recordingSlot -= 1
-        if recordingSlot < 0 {
-            self.timerForClip.invalidate()
-            clipTimeLabel.isHidden = true
-            self.startStopRecording()
-            self.clipTimeLabel.text = ""
-            self.startStopRecording()
-            
-            let sloteValue = UserDefaults.standard.integer(forKey: "stop")
-            
-            if sloteValue > 0 {
-                self.recordingSlot = sloteValue
-                self.videoTimeInSec = sloteValue
-            } else {
-                self.recordingSlot = 4
-                self.videoTimeInSec = 4
-            }
-            
-            
-        } else {
-            self.clipTimeLabel.isHidden = false
-            self.clipTimeLabel.text = "\(recordingSlot)"
-        }
     }
     
     func export(_ asset: AVAsset, to outputMovieURL: URL, startTime: CMTime, endTime: CMTime, composition: AVVideoComposition) {
@@ -309,7 +277,6 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         }
     }
     
-    
     /*
      // Method: requestAuthorization
      // Description: Mthods to request authorization
@@ -353,6 +320,8 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
                         } else {
                             print("Saved successfully")
                         }
+                        self.selectedTag = nil
+                        self.reloadTagCollectionView()
                         completion?(error)
                     }
                 }
@@ -420,10 +389,65 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         self.startStopRecording()
     }
     
+    /*
+     // Method: deleteClicked
+     // Description: IBAction for delete tag button
+     */
     @objc func deleteClicked(sender : UIButton) {
         print("delete Clicked")
         self.deleteTag(index: sender.tag)
     }
+    
+    // called every time interval from the timer
+    @objc func timerAction() {
+        counter += 1
+        let timerFormatedTime = self.secondsToHoursMinutesSeconds(counter)
+        self.videoTimerLabel.text = "\(timerFormatedTime.hours):\(timerFormatedTime.minutes):\(timerFormatedTime.seconds)"
+    }
+    
+    // called every time interval from the timer
+    @objc func timerActionForClip() {
+        recordingSlot -= 1
+        if recordingSlot < 0 {
+            self.view.isUserInteractionEnabled = true
+            self.timerForClip.invalidate()
+            self.clipTimeProgressView.isHidden = true
+            self.startStopRecording()
+            self.clipTimeProgressView.progress = 0.0
+            self.startStopRecording()
+            
+            let sloteValue = UserDefaults.standard.integer(forKey: "stop")
+            
+            if sloteValue > 0 {
+                self.recordingSlot = sloteValue
+                self.videoTimeInSec = sloteValue
+            } else {
+                self.recordingSlot = 4
+                self.videoTimeInSec = 4
+            }
+            
+            
+        } else {
+            self.view.isUserInteractionEnabled = false
+            self.clipTimeProgressView.isHidden = false
+            let progress = videoTimeInSec - recordingSlot
+            print("progress = \(Float(progress) / 10)")
+            self.clipTimeProgressView.progress = Float(progress) / 10
+        }
+    }
+    
+    /*
+     // Method: onBtnFlash
+     // Description: IBAction for flash button
+     */
+    @IBAction func onBtnFlash(_ sender: Any) {
+        if self.videoPickerController.cameraFlashMode == .on {
+            self.videoPickerController.cameraFlashMode = .off
+        } else {
+            self.videoPickerController.cameraFlashMode = .on
+        }
+    }
+    
 }
 
 //MARK : UIImagePicker Delegate
@@ -535,6 +559,12 @@ extension MainViewController: UICollectionViewDelegate,UICollectionViewDataSourc
         cell.deleteButton.tag = indexPath.row
         cell.deleteButton.addTarget(self, action:#selector(self.deleteClicked), for: .touchUpInside)
         
+        if tagStruch.title ==  self.selectedTag?.title {
+            cell.selectedTagView.backgroundColor = .white
+        } else {
+            cell.selectedTagView.backgroundColor = .clear
+        }
+        
         cell.backgroundColor = UIColor.clear
         return cell
         
@@ -546,9 +576,15 @@ extension MainViewController: UICollectionViewDelegate,UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.selectedTag = arrayTags[indexPath.row]
-        self.isSavedVideo = false
-        timerForClip = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerActionForClip), userInfo: nil, repeats: true)
+        if isVideoRecordingStart {
+            self.selectedTag = arrayTags[indexPath.row]
+            self.isSavedVideo = false
+            timerForClip = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerActionForClip), userInfo: nil, repeats: true)
+            self.reloadTagCollectionView()
+        } else {
+            AppUtility.showMessage(title: "Info.", message: "Please Start Video First.", controller: self)
+        }
+      
         
     }
     
