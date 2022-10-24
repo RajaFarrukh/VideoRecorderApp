@@ -39,7 +39,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         
         // Do any additional setup after loading the view.
         // self.setup()
-        self.createAlbum()
+       // self.createAlbum()
         
         self.setupView()
     }
@@ -297,23 +297,45 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
      // Method: onBtnSignup
      // Description: Mthods to save video to album
      */
+//    func saveVideoToAlbum(_ outputURL: URL, _ completion: ((Error?) -> Void)?) {
+//        requestAuthorization {
+//
+//            let fetchOptions = PHFetchOptions()
+//            fetchOptions.predicate = NSPredicate(format: "title = %@", "VideoClips")
+//            let collection : PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
+//            let firstobj = collection.firstObject
+//
+//            if let assetCollection = collection.firstObject {
+//
+//                PHPhotoLibrary.shared().performChanges({
+//                    let assetChangeRequest = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputURL)
+//                    if let assetPlaceholder = assetChangeRequest?.placeholderForCreatedAsset {
+//                        let albumChangeRequest = PHAssetCollectionChangeRequest(for: assetCollection)
+//                        albumChangeRequest?.addAssets([assetPlaceholder] as NSFastEnumeration)
+//                    }
+//                }){ (result, error) in
+//                    DispatchQueue.main.async {
+//                        if let error = error {
+//                            print(error.localizedDescription)
+//                        } else {
+//                            print("Saved successfully")
+//                        }
+//                        self.selectedTag = nil
+//                        self.reloadTagCollectionView()
+//                        completion?(error)
+//                    }
+//                }
+//
+//            }
+//        }
+//    }
+
     func saveVideoToAlbum(_ outputURL: URL, _ completion: ((Error?) -> Void)?) {
-        requestAuthorization {
-            
-            let fetchOptions = PHFetchOptions()
-            fetchOptions.predicate = NSPredicate(format: "title = %@", "VideoClips")
-            let collection : PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
-            let firstobj = collection.firstObject
-            
-            if let assetCollection = collection.firstObject {
-                
+            requestAuthorization {
                 PHPhotoLibrary.shared().performChanges({
-                    let assetChangeRequest = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputURL)
-                    if let assetPlaceholder = assetChangeRequest?.placeholderForCreatedAsset {
-                        let albumChangeRequest = PHAssetCollectionChangeRequest(for: assetCollection)
-                        albumChangeRequest?.addAssets([assetPlaceholder] as NSFastEnumeration)
-                    }
-                }){ (result, error) in
+                    let request = PHAssetCreationRequest.forAsset()
+                    request.addResource(with: .video, fileURL: outputURL, options: nil)
+                }) { (result, error) in
                     DispatchQueue.main.async {
                         if let error = error {
                             print(error.localizedDescription)
@@ -325,10 +347,8 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
                         completion?(error)
                     }
                 }
-                
             }
         }
-    }
     
     /*
      // Method: deleteTag
@@ -489,16 +509,6 @@ extension MainViewController : UIImagePickerControllerDelegate, UINavigationCont
     }
     
     func createAlbum() {
-        //        PHPhotoLibrary.shared().performChanges({
-        //            PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: "VideoClips")   // create an asset collection with the album name
-        //        }) { success, error in
-        //            if success {
-        //
-        //            } else {
-        //                print("error \(error)")
-        //            }
-        //        }
-        
         //Get PHFetch Options
         let fetchOptions = PHFetchOptions()
         fetchOptions.predicate = NSPredicate(format: "title = %@", "VideoClips")
