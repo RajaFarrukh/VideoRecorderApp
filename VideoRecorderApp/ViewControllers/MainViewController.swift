@@ -95,12 +95,20 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         
     }
     
+    /*
+     // Method: reloadTagCollectionView
+     // Description: Method uset to reload tag collection view
+     */
     func reloadTagCollectionView() {
         self.tagsCollectionView.delegate = self
         self.tagsCollectionView.dataSource = self
         self.tagsCollectionView.reloadData()
     }
     
+    /*
+     // Method: cameraViewAction
+     // Description: Method uset for camera view action
+     */
     func cameraViewAction() {
         videoPickerController.delegate = self
         if UIImagePickerController.isSourceTypeAvailable(.camera) == false {
@@ -152,7 +160,10 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         }
     }
     
-    // Start stop recording
+    /*
+     // Method: startStopRecording
+     // Description: Method used to start stop recording
+     */
     func startStopRecording() {
         if isVideoRecordingStart {
             isVideoRecordingStart = false
@@ -170,10 +181,18 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         }
     }
     
+    /*
+     // Method: secondsToHoursMinutesSeconds
+     // Description: Method used to convert seconds To Hours Minutes Seconds
+     */
     func secondsToHoursMinutesSeconds(_ seconds: Int) -> (hours:Int, minutes:Int, seconds:Int) {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
     
+    /*
+     // Method: export
+     // Description: Method used to export video
+     */
     func export(_ asset: AVAsset, to outputMovieURL: URL, startTime: CMTime, endTime: CMTime, composition: AVVideoComposition) {
         
         //Create trim range
@@ -207,7 +226,10 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         })
     }
     
-    // seconds from string
+    /*
+     // Method: secondsFromString
+     // Description: Method used to get seconds from string
+     */
     func secondsFromString (string: String) -> Int {
         let components: Array = string.components(separatedBy: ":")
         let hours = Int(components[0] ) ?? 0
@@ -216,7 +238,10 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         return Int(((hours * 60) * 60) + (minutes * 60) + seconds)
     }
     
-    // crop video
+    /*
+     // Method: cropVideo
+     // Description: Method used to crop video
+     */
     func cropVideo(sourceURL1: URL, statTime:Float, endTime:Float) {
         let manager = FileManager.default
         
@@ -294,7 +319,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
     }
     
     /*
-     // Method: onBtnSignup
+     // Method: saveVideoToAlbum
      // Description: Mthods to save video to album
      */
 //    func saveVideoToAlbum(_ outputURL: URL, _ completion: ((Error?) -> Void)?) {
@@ -418,14 +443,20 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         self.deleteTag(index: sender.tag)
     }
     
-    // called every time interval from the timer
+    /*
+     // Method: timerAction
+     // Description: IBAction for called every time interval from the timer
+     */
     @objc func timerAction() {
         counter += 1
         let timerFormatedTime = self.secondsToHoursMinutesSeconds(counter)
         self.videoTimerLabel.text = "\(timerFormatedTime.hours):\(timerFormatedTime.minutes):\(timerFormatedTime.seconds)"
     }
     
-    // called every time interval from the timer
+    /*
+     // Method: timerActionForClip
+     // Description: IBAction for called every time interval from the timer for clip
+     */
     @objc func timerActionForClip() {
         recordingSlot -= 1
         if recordingSlot < 0 {
