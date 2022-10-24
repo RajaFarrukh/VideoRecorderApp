@@ -319,7 +319,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
     }
     
     /*
-     // Method: onBtnSignup
+     // Method: saveVideoToAlbum
      // Description: Mthods to save video to album
      */
     func saveVideoToAlbum(_ outputURL: URL, _ completion: ((Error?) -> Void)?) {
