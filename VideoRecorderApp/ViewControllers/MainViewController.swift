@@ -451,6 +451,14 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         counter += 1
         let timerFormatedTime = self.secondsToHoursMinutesSeconds(counter)
         self.videoTimerLabel.text = "\(timerFormatedTime.hours):\(timerFormatedTime.minutes):\(timerFormatedTime.seconds)"
+        
+        let sloteValue = UserDefaults.standard.integer(forKey: "start")
+        if sloteValue < counter {
+            self.tagsCollectionView.isHidden = false
+        } else {
+            self.tagsCollectionView.isHidden = true
+        }
+        
     }
     
     /*
