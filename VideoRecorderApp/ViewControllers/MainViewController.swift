@@ -474,8 +474,11 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
             self.clipTimeProgressView.isHidden = true
             self.startStopRecording()
             self.clipTimeProgressView.progress = 0.0
-            self.startStopRecording()
             
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.startStopRecording()
+            }
+           
             let sloteValue = UserDefaults.standard.integer(forKey: "stop")
             
             if sloteValue > 0 {
@@ -485,6 +488,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
                 self.recordingSlot = 4
                 self.videoTimeInSec = 4
             }
+            
             
             
         } else {
@@ -516,7 +520,7 @@ extension MainViewController : UIImagePickerControllerDelegate, UINavigationCont
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL
-        print(videoURL)
+        print(videoURL as Any )
         capturedVideoURL = videoURL
         
         if let cVideoURL = self.capturedVideoURL {
@@ -631,6 +635,7 @@ extension MainViewController: UICollectionViewDelegate,UICollectionViewDataSourc
             self.isSavedVideo = false
             timerForClip = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerActionForClip), userInfo: nil, repeats: true)
             self.reloadTagCollectionView()
+            self.tagsCollectionView.isHidden = true
         } else {
             AppUtility.showMessage(title: "Info.", message: "Please Start Video First.", controller: self)
         }

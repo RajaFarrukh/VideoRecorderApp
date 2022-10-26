@@ -21,9 +21,5 @@
 			</array>
 		</dict>
 	</dict>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Application Need access to your photo library to save video clips</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Application needs access to your microphone to record voice while recording.</string>
 </dict>
 </plist>
