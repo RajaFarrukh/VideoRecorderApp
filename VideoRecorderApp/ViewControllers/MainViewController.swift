@@ -172,6 +172,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
             timer.invalidate()
             self.startStopButton.setTitle("Start", for: .normal)
             self.startStopButton.backgroundColor = AppUtility.hexColor(hex: "2E6A1F")
+            self.tagsCollectionView.isHidden = false
         } else {
             isVideoRecordingStart = true
             self.videoPickerController.startVideoCapture()
