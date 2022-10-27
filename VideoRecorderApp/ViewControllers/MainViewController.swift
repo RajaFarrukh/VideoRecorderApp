@@ -488,12 +488,11 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
                 self.recordingSlot = 4
                 self.videoTimeInSec = 4
             }
-            
-            
-            
+           
         } else {
             self.view.isUserInteractionEnabled = false
             self.clipTimeProgressView.isHidden = false
+            self.tagsCollectionView.isHidden = true
             let progress = videoTimeInSec - recordingSlot
             print("progress = \(Float(progress) / 10)")
             self.clipTimeProgressView.progress = Float(progress) / 10
