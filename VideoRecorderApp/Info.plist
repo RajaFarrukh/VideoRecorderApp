@@ -21,11 +21,5 @@
 			</array>
 		</dict>
 	</dict>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>App needs access to photo library to get photoes.</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Please allow access to save photo/video in your photo library</string>
-    <key>NSCameraUsageDescription</key>
-    <string>App need access to your camrera to capture photo/video.</string>
 </dict>
 </plist>

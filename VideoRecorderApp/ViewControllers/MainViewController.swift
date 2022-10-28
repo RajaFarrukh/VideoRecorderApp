@@ -51,7 +51,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         //        self.arrayTags.append(contentsOf: tagArray)
         self.reloadTagCollectionView()
         
-        self.clipTimeProgressView.progress = 0.0
+        //self.clipTimeProgressView.progress = 0.0
         let sloteValue = UserDefaults.standard.integer(forKey: "stop")
         
         if sloteValue > 0 {
@@ -87,8 +87,8 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
      // Description: Method uset to setup page initially
      */
     func setupView() {
-        self.clipTimeProgressView.isHidden = true
-        self.clipTimeProgressView.progress = 0
+//        self.clipTimeProgressView.isHidden = true
+//        self.clipTimeProgressView.progress = 0
         
         let nibName = UINib(nibName: "TagCollectionViewCell", bundle:nil)
         self.tagsCollectionView.register(nibName, forCellWithReuseIdentifier: "TagCell")
@@ -172,13 +172,21 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
             timer.invalidate()
             self.startStopButton.setTitle("Start", for: .normal)
             self.startStopButton.backgroundColor = AppUtility.hexColor(hex: "2E6A1F")
-            self.tagsCollectionView.isHidden = false
         } else {
             isVideoRecordingStart = true
             self.videoPickerController.startVideoCapture()
             self.startStopButton.setTitle("Stop", for: .normal)
             self.startStopButton.backgroundColor = UIColor.red
             timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+            
+            self.tagsCollectionView.isHidden = true
+            
+            let startSlot = UserDefaults.standard.integer(forKey: "start")
+            let timerDelay = Double(startSlot)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + timerDelay) {
+                self.tagsCollectionView.isHidden = false
+            }
         }
     }
     
@@ -453,12 +461,12 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         let timerFormatedTime = self.secondsToHoursMinutesSeconds(counter)
         self.videoTimerLabel.text = "\(timerFormatedTime.hours):\(timerFormatedTime.minutes):\(timerFormatedTime.seconds)"
         
-        let sloteValue = UserDefaults.standard.integer(forKey: "start")
-        if sloteValue < counter {
-            self.tagsCollectionView.isHidden = false
-        } else {
-            self.tagsCollectionView.isHidden = true
-        }
+//        let sloteValue = UserDefaults.standard.integer(forKey: "start")
+//        if sloteValue < counter {
+//            self.tagsCollectionView.isHidden = false
+//        } else {
+//            self.tagsCollectionView.isHidden = true
+//        }
         
     }
     
@@ -471,9 +479,9 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
         if recordingSlot < 0 {
             self.view.isUserInteractionEnabled = true
             self.timerForClip.invalidate()
-            self.clipTimeProgressView.isHidden = true
+           // self.clipTimeProgressView.isHidden = true
             self.startStopRecording()
-            self.clipTimeProgressView.progress = 0.0
+           // self.clipTimeProgressView.progress = 0.0
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                 self.startStopRecording()
@@ -488,14 +496,13 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
                 self.recordingSlot = 4
                 self.videoTimeInSec = 4
             }
-           
         } else {
             self.view.isUserInteractionEnabled = false
-            self.clipTimeProgressView.isHidden = false
-            self.tagsCollectionView.isHidden = true
-            let progress = videoTimeInSec - recordingSlot
-            print("progress = \(Float(progress) / 10)")
-            self.clipTimeProgressView.progress = Float(progress) / 10
+           // self.clipTimeProgressView.isHidden = false
+//            self.tagsCollectionView.isHidden = true
+           // let progress = videoTimeInSec - recordingSlot
+           // print("progress = \(Float(progress) / 10)")
+            //self.clipTimeProgressView.progress = Float(progress) / 10
         }
     }
     
@@ -635,6 +642,15 @@ extension MainViewController: UICollectionViewDelegate,UICollectionViewDataSourc
             timerForClip = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerActionForClip), userInfo: nil, repeats: true)
             self.reloadTagCollectionView()
             self.tagsCollectionView.isHidden = true
+            
+            let startSlot = UserDefaults.standard.integer(forKey: "start")
+            let stopSlot = UserDefaults.standard.integer(forKey: "stop")
+            let timerDelay = Double(startSlot + stopSlot)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + timerDelay) {
+                self.tagsCollectionView.isHidden = false
+            }
+            
         } else {
             AppUtility.showMessage(title: "Info.", message: "Please Start Video First.", controller: self)
         }
