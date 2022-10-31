@@ -423,7 +423,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
     }
     
     // MARK: - IBAction Methods
-    
+     
     /*
      // Method: onBtnSignup
      // Description: IBAction for signup button
