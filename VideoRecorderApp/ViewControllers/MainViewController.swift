@@ -302,9 +302,9 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
                         }
                     }
                 case .failed:
-                    print("failed \(exportSession.error)")
+                    print("failed \(exportSession.error?.localizedDescription ?? "failed")")
                 case .cancelled:
-                    print("cancelled \(exportSession.error)")
+                    print("cancelled \(exportSession.error?.localizedDescription ?? "cancelled")")
                 default: break
                 }
             }
@@ -342,7 +342,7 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
 //            fetchOptions.predicate = NSPredicate(format: "title = %@", "VideoClips")
             fetchOptions.predicate = NSPredicate(format: "title = %@", "\(self.selectedTag?.title ?? "VideoClips")")
             let collection : PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
-            let firstobj = collection.firstObject
+            //let firstobj = collection.firstObject
 
             if let assetCollection = collection.firstObject {
 
