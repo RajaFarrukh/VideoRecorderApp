@@ -33,7 +33,6 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
     @IBOutlet var clipTimeProgressView: UIProgressView!
     @IBOutlet weak var tagsCollectionView: UICollectionView!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -338,6 +337,8 @@ class MainViewController: UIViewController, AVCaptureVideoDataOutputSampleBuffer
                 return
             }
             
+            self.createAlbum(albumName: self.selectedTag?.title ?? "VideoClips")
+            
             let fetchOptions = PHFetchOptions()
 //            fetchOptions.predicate = NSPredicate(format: "title = %@", "VideoClips")
             fetchOptions.predicate = NSPredicate(format: "title = %@", "\(self.selectedTag?.title ?? "VideoClips")")
@@ -563,7 +564,7 @@ extension MainViewController : UIImagePickerControllerDelegate, UINavigationCont
         
     }
     
-    func createAlbum() {
+    func createAlbum(albumName:String) {
         //Get PHFetch Options
         let fetchOptions = PHFetchOptions()
         fetchOptions.predicate = NSPredicate(format: "title = %@", "VideoClips")
