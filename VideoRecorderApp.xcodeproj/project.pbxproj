@@ -454,14 +454,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 27G7S42374;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 4RQW26Q2D6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VideoRecorderApp/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) camera description.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "VideoRecorderApp camera description.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Application needs access to your microphone to record voice while recording.";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "$(PRODUCT_NAME) photos add description.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "$(PRODUCT_NAME)photos description.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "VideoRecorderApp photos add description.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "VideoRecorderAppphotos description.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -476,9 +476,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Leo.LEOMobileApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Video.Recorder.App;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = LEOMobileApp_development;
+				PROVISIONING_PROFILE_SPECIFIER = VideoEditorApp_Development;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -493,14 +493,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 27G7S42374;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 4RQW26Q2D6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VideoRecorderApp/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) camera description.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "VideoRecorderApp camera description.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Application needs access to your microphone to record voice while recording.";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "$(PRODUCT_NAME) photos add description.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "$(PRODUCT_NAME)photos description.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "VideoRecorderApp photos add description.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "VideoRecorderAppphotos description.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -515,9 +515,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Leo.LEOMobileApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Video.Recorder.App;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = LeoMobileApp_distributions;
+				PROVISIONING_PROFILE_SPECIFIER = VideoEditorApp__distributions;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
